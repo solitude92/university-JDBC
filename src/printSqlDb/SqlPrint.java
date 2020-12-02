@@ -25,7 +25,7 @@ public class SqlPrint {
     }
 
     public static void printRow(ArrayList<String> columnNames, ResultSet resultSet, int i) throws SQLException {
-        System.out.printf("%s : %s-70s" ,columnNames.get(i) ,resultSet.getString(columnNames.get(i)));
+        System.out.print(columnNames.get(i) + " :" + resultSet.getString(columnNames.get(i)));
         System.out.print("\t\t|\t\t");
     }
 
