@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SqlFunctions {
-    public String dbName = "";
-    public String password = "";
+    private String dbName = "";
+    private String password = "";
 
     public SqlFunctions(String dbName, String password) {
         this.dbName = dbName;
@@ -18,18 +18,19 @@ public class SqlFunctions {
     }
 
     //******************************************Show column of the selected table*********************************************
+
     public void showTable(String tableName) throws SQLException {
         String sqlCode = "SELECT * FROM " + tableName;
         connectToPrint(tableName, sqlCode);
     }
-
     //***********************************************Add data to chosen table************************************************
+
     public void addToTable(String tableName) {
-        ArrayList<String> columnNames =  printColumns(tableName);
+        ArrayList<String> columnNames = printColumns(tableName);
         StringBuilder sqlCode = new StringBuilder("INSERT INTO " + tableName + " (");
         for (int j = 0; j < columnNames.size(); j++) {
             sqlCode.append(columnNames.get(j));
-            if (j<columnNames.size()-1)
+            if (j < columnNames.size() - 1)
                 sqlCode.append(", ");
         }
         sqlCode.append(" ) value( ");
@@ -39,51 +40,48 @@ public class SqlFunctions {
             sqlCode.append("'");
             sqlCode.append(scanner().next());
             sqlCode.append("'");
-            if (i<columnNames.size()-1)
+            if (i < columnNames.size() - 1)
                 sqlCode.append(", ");
         }
         sqlCode.append(")");
         System.out.println(sqlCode.toString());
-        connectToChange(tableName , sqlCode.toString());
+        connectToChange(tableName, sqlCode.toString());
         System.out.println("The data added successfully");
     }
-
     //*******************************************Delete data from the table*******************************************
+
     public void deleteFromTable(String tableName) {
-        String sqlCode = "delete from "+ tableName + " where ";
+        String sqlCode = "delete from " + tableName + " where ";
         System.out.println("Enter the condition, for example 'student_id=10'. Make sure its a " +
                 "\nvalid condition, otherwise nothing will be affected.");
-        sqlCode= sqlCode+scanner().next();
+        sqlCode = sqlCode + scanner().next();
         System.out.println(sqlCode);
-        connectToChange(tableName , sqlCode);
+        connectToChange(tableName, sqlCode);
         System.out.println("The data deleted successfully");
 
 
     }
-
     //***********************************************Edit data in chosen table************************************************
-    public void editInTable(String tableName){
-        ArrayList<String> columnNames =  printColumns(tableName);
-        StringBuilder sqlCode = new StringBuilder("UPDATE "+ tableName + "\nSET ");
+
+    public void editInTable(String tableName) {
+        ArrayList<String> columnNames = printColumns(tableName);
+        StringBuilder sqlCode = new StringBuilder("UPDATE " + tableName + "\nSET ");
         System.out.println("Enter the new data in order to change the row.NOTE:Enter the data without any change to" +
                 " keep the data unchanged in a column.");
         for (int j = 0; j < columnNames.size(); j++) {
             sqlCode.append(columnNames.get(j)).append("='").append(scanner().next()).append("'");
-            if (j<columnNames.size()-1)
+            if (j < columnNames.size() - 1)
                 sqlCode.append(", ");
         }
         System.out.println("Enter the condition, for example 'student_id=10'. Make sure its a " +
                 "\nvalid condition, otherwise nothing will be affected.");
         sqlCode.append(" WHERE ").append(scanner().next());
         System.out.println(sqlCode.toString());
-        connectToChange(tableName , sqlCode.toString());
+        connectToChange(tableName, sqlCode.toString());
         System.out.println("The data added successfully");
-
-
-
     }
-
     //*******************************************get columns name of selected table*******************************************
+
     public ArrayList<String> getColumnName(String tableName) {
         String sqlCode = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS where TABLE_NAME LIKE '" + tableName + "'";
         ArrayList<String> columnNames = new ArrayList<>();
@@ -97,21 +95,21 @@ public class SqlFunctions {
         }
         return columnNames;
     }
-
     //*******************************************Help full scanner method ******************************************
+
     public static Scanner scanner() {
         Scanner scanner = new Scanner(System.in);
         return scanner;
     }
-
     //*******************************************Print selected table's column names******************************************
-    public ArrayList<String> printColumns(String tableName){
+
+    public ArrayList<String> printColumns(String tableName) {
         ArrayList<String> columnNames = getColumnName(tableName);
         System.out.println(columnNames);
         return columnNames;
     }
-
     //*******************************************Connect to database and print table******************************************
+
     private void connectToPrint(String tableName, String sqlCode) {
         try (ResultSet resultSet = ConnectionTool.connectTo(this.dbName, this.password, sqlCode);
         ) {
@@ -121,8 +119,8 @@ public class SqlFunctions {
             throwables.printStackTrace();
         }
     }
-
     //***********************************************Changing without printing***********************************************
+
     private void connectToChange(String tableName, String sqlCode) {
         try (ResultSet resultSet = ConnectionTool.connectTo(this.dbName, this.password, sqlCode);
         ) {
@@ -132,4 +130,11 @@ public class SqlFunctions {
     }
 
 
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

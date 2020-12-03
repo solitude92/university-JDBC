@@ -9,9 +9,9 @@ public class Execute {
         String dbName;
         String password;
         String tableName;
-        boolean isTable=true;
+        boolean isTable = true;
 
-        while(true) {
+        while (true) {
             System.out.println("Enter password: ");
             password = scanner().next();
             System.out.println("Enter database name: ");
@@ -29,12 +29,11 @@ public class Execute {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-
-
             }
         }
     }
-    public static Scanner scanner(){
+
+    public static Scanner scanner() {
         Scanner scanner = new Scanner(System.in);
         return scanner;
     }

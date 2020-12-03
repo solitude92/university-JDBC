@@ -18,12 +18,6 @@ public class SqlPrint {
 
     }
 
-    public static void printColumns(ArrayList<String> columnNames) throws SQLException {
-        for (String str: columnNames) {
-            System.out.println(str);
-        }
-    }
-
     public static void printRow(ArrayList<String> columnNames, ResultSet resultSet, int i) throws SQLException {
         System.out.print(columnNames.get(i) + " :" + resultSet.getString(columnNames.get(i)));
         System.out.print("\t\t|\t\t");
