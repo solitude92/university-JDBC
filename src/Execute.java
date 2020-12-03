@@ -41,13 +41,13 @@ public class Execute {
     public static void printMenu(){
         System.out.println();
         System.out.println("=*=*=*=*=*==*=*=*=*=*=*=*=*==*=*=*=*=*=*=*=*=*==*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=");
-        System.out.println("What do you want to do?(Enter the number:)");
-        System.out.println("1)Show the table the table");
-        System.out.println("2)Add to the table");
-        System.out.println("3)Delete from the table");
-        System.out.println("4)Edit in the table");
-        System.out.println("5)Select another table");
-        System.out.println("6)Select another data base");
+        System.out.println("*=*=*  |What do you want to do?(Enter the number:)                         *=*=*");
+        System.out.println("*=*=*  |1)Show another table at the same time                              *=*=*");
+        System.out.println("*=*=*  |2)Add to the table                                                 *=*=*");
+        System.out.println("*=*=*  |3)Delete from the table                                            *=*=*");
+        System.out.println("*=*=*  |4)Edit in the table                                                *=*=*");
+        System.out.println("*=*=*  |5)Select another table                                             *=*=*");
+        System.out.println("*=*=*  |6)Select another data base                                         *=*=*");
         System.out.println("=*=*=*=*=*==*=*=*=*=*=*=*=*==*=*=*=*=*=*=*=*=*==*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=");
         System.out.println();
     }
