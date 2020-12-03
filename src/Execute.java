@@ -23,6 +23,7 @@ public class Execute {
                 try {
                     SqlFunctions sqlFunctions = new SqlFunctions(dbName, password);
                     sqlFunctions.showTable(tableName);
+                    sqlFunctions.editInTable(tableName);
                     sqlFunctions.addToTable(tableName);
                     sqlFunctions.deleteFromTable(tableName);
                 } catch (SQLException e) {

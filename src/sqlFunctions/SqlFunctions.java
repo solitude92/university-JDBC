@@ -23,7 +23,6 @@ public class SqlFunctions {
         connectToPrint(tableName, sqlCode);
     }
 
-
     //***********************************************Add data to chosen table************************************************
     public void addToTable(String tableName) {
         ArrayList<String> columnNames =  printColumns(tableName);
@@ -47,11 +46,7 @@ public class SqlFunctions {
         System.out.println(sqlCode.toString());
         connectToChange(tableName , sqlCode.toString());
         System.out.println("The data added successfully");
-
-
     }
-
-
 
     //*******************************************Delete data from the table*******************************************
     public void deleteFromTable(String tableName) {
@@ -62,6 +57,29 @@ public class SqlFunctions {
         System.out.println(sqlCode);
         connectToChange(tableName , sqlCode);
         System.out.println("The data deleted successfully");
+
+
+    }
+
+    //***********************************************Edit data in chosen table************************************************
+    public void editInTable(String tableName){
+        ArrayList<String> columnNames =  printColumns(tableName);
+        StringBuilder sqlCode = new StringBuilder("UPDATE "+ tableName + "\nSET ");
+        System.out.println("Enter the new data in order to change the row.NOTE:Enter the data without any change to" +
+                " keep the data unchanged in a column.");
+        for (int j = 0; j < columnNames.size(); j++) {
+            sqlCode.append(columnNames.get(j)).append("='").append(scanner().next()).append("'");
+            if (j<columnNames.size()-1)
+                sqlCode.append(", ");
+        }
+        System.out.println("Enter the condition, for example 'student_id=10'. Make sure its a " +
+                "\nvalid condition, otherwise nothing will be affected.");
+        sqlCode.append(" WHERE ").append(scanner().next());
+        System.out.println(sqlCode.toString());
+        connectToChange(tableName , sqlCode.toString());
+        System.out.println("The data added successfully");
+
+
 
     }
 
