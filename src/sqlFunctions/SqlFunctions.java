@@ -27,7 +27,6 @@ public class SqlFunctions {
     //***********************************************Add data to chosen table************************************************
     public void addToTable(String tableName) {
         StringBuilder sqlCode = new StringBuilder("INSERT INTO " + tableName + " value (");
-        ArrayList<String> values = new ArrayList<>();
         ArrayList<String> columnNames =  printColumns(tableName);
         System.out.println("Please write the value of columns in a row: ");
         for (int i = 0; i < columnNames.size(); i++) {
@@ -44,7 +43,15 @@ public class SqlFunctions {
 
     }
 
+    //*******************************************Delete data from the table*******************************************
     public void deleteFromTable(String tableName) {
+        String sqlCode = "delete from "+ tableName + " where ";
+        System.out.println("Enter the condition, for example 'student_id=10'. Make sure its a " +
+                "\nvalid condition, otherwise nothing will be affected.");
+        sqlCode= sqlCode+scanner().next();
+        System.out.println(sqlCode);
+        connectToChange(tableName , sqlCode);
+        System.out.println("The data deleted successfully");
 
     }
 

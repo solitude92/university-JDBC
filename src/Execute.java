@@ -24,6 +24,7 @@ public class Execute {
                     SqlFunctions sqlFunctions = new SqlFunctions(dbName, password);
                     sqlFunctions.showTable(tableName);
                     sqlFunctions.addToTable(tableName);
+                    sqlFunctions.deleteFromTable(tableName);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
