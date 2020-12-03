@@ -26,22 +26,32 @@ public class SqlFunctions {
 
     //***********************************************Add data to chosen table************************************************
     public void addToTable(String tableName) {
-        StringBuilder sqlCode = new StringBuilder("INSERT INTO " + tableName + " value (");
         ArrayList<String> columnNames =  printColumns(tableName);
+        StringBuilder sqlCode = new StringBuilder("INSERT INTO " + tableName + " (");
+        for (int j = 0; j < columnNames.size(); j++) {
+            sqlCode.append(columnNames.get(j));
+            if (j<columnNames.size()-1)
+                sqlCode.append(", ");
+        }
+        sqlCode.append(" ) value( ");
         System.out.println("Please write the value of columns in a row: ");
         for (int i = 0; i < columnNames.size(); i++) {
-            if (i<columnNames.size()-1)
-                sqlCode.append("'");
+
+            sqlCode.append("'");
             sqlCode.append(scanner().next());
+            sqlCode.append("'");
             if (i<columnNames.size()-1)
-                sqlCode.append("', ");
+                sqlCode.append(", ");
         }
         sqlCode.append(")");
         System.out.println(sqlCode.toString());
         connectToChange(tableName , sqlCode.toString());
         System.out.println("The data added successfully");
 
+
     }
+
+
 
     //*******************************************Delete data from the table*******************************************
     public void deleteFromTable(String tableName) {
@@ -88,7 +98,6 @@ public class SqlFunctions {
         try (ResultSet resultSet = ConnectionTool.connectTo(this.dbName, this.password, sqlCode);
         ) {
             ArrayList<String> columnNames = getColumnName(tableName);
-            assert resultSet != null;
             SqlPrint.print(resultSet, columnNames);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
