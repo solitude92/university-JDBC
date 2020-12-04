@@ -51,12 +51,20 @@ public class SqlFunctions {
     //*******************************************Delete data from the table*******************************************
 
     public void deleteFromTable(String tableName) throws SQLException {
-        String sqlCode = "delete from " + tableName + " where ";
-        System.out.println("Enter the condition, for example 'student_id=10'. Make sure its a " +
+        StringBuilder sqlCode = new StringBuilder("delete from " + tableName + " where ");
+
+        System.out.println("Enter the condition, for example '  student_id='10'  '. Make sure its a " +
                 "\nvalid condition, otherwise nothing will be affected.");
-        sqlCode = sqlCode + scanner().next();
-        System.out.println(sqlCode);
-        connectToChange(tableName, sqlCode);
+        System.out.println("Enter the number of condition/s you need:");
+        int conditionNumber = scanner().nextInt();
+        for (int i = 1 ; i <= conditionNumber; i++) {
+            System.out.println("Enter condition number " + i);
+            sqlCode.append(scanner().next());
+            if (i<conditionNumber)
+                sqlCode.append(" AND ");
+        }
+        System.out.println(sqlCode.toString());
+        connectToChange(tableName, sqlCode.toString());
         System.out.println("The data deleted successfully");
 
 
@@ -73,9 +81,17 @@ public class SqlFunctions {
             if (j < columnNames.size() - 1)
                 sqlCode.append(", ");
         }
-        System.out.println("Enter the condition, for example 'student_id=10'. Make sure its a " +
+        sqlCode.append(" WHERE ");
+        System.out.println("Enter the number of condition/s you need:");
+        int conditionNumber = scanner().nextInt();
+        System.out.println("Enter the condition, for example ' student_id='10' '. Make sure its a " +
                 "\nvalid condition, otherwise nothing will be affected.");
-        sqlCode.append(" WHERE ").append(scanner().next());
+        for (int i = 1 ; i <= conditionNumber; i++) {
+            System.out.println("Enter condition number " + i);
+            sqlCode.append(scanner().next());
+            if (i<conditionNumber)
+                sqlCode.append(" AND ");
+        }
         System.out.println(sqlCode.toString());
         connectToChange(tableName, sqlCode.toString());
         System.out.println("The data added successfully");

@@ -10,9 +10,9 @@ public class Execute {
 
     public static void main(String[] args) {
 
-        boolean isTable = true;
 
-        while (isTable) {
+        while (true) {
+            boolean isTable=true;
             System.out.println("Enter password: ");
             password = scanner().next();
             System.out.println("Enter database name: ");
@@ -20,14 +20,14 @@ public class Execute {
             System.out.println("Enter table name: ");
             tableName = scanner().next();
             SqlFunctions sqlFunctions = new SqlFunctions(dbName, password);
-            while (true) {
+            while (isTable) {
                 try {
-                    isTable = false;
                     sqlFunctions.showTable(tableName);
                     printMenu();
                     executiveMenu(sqlFunctions, tableName);
 
                 } catch (SQLException e) {
+                    isTable=false;
                     System.out.println("Not valid input!!!! Try again.");
                 }
             }
