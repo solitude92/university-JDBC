@@ -25,7 +25,7 @@ public class SqlFunctions {
     }
     //***********************************************Add data to chosen table************************************************
 
-    public void addToTable(String tableName) throws SQLException {
+    public void addToTable(String tableName) {
         ArrayList<String> columnNames = printColumns(tableName);
         StringBuilder sqlCode = new StringBuilder("INSERT INTO " + tableName + " (");
         for (int j = 0; j < columnNames.size(); j++) {
@@ -50,7 +50,7 @@ public class SqlFunctions {
     }
     //*******************************************Delete data from the table*******************************************
 
-    public void deleteFromTable(String tableName) throws SQLException {
+    public void deleteFromTable(String tableName) {
         StringBuilder sqlCode = new StringBuilder("delete from " + tableName + " where ");
 
         System.out.println("Enter the condition, for example '  student_id='10'  '. Make sure its a " +
@@ -71,7 +71,7 @@ public class SqlFunctions {
     }
     //***********************************************Edit data in chosen table************************************************
 
-    public void editInTable(String tableName) throws SQLException {
+    public void editInTable(String tableName) {
         ArrayList<String> columnNames = printColumns(tableName);
         StringBuilder sqlCode = new StringBuilder("UPDATE " + tableName + "\nSET ");
         System.out.println("Enter the new data in order to change the row.NOTE:Enter the data without any change to" +
@@ -138,12 +138,11 @@ public class SqlFunctions {
     }
     //***********************************************Changing without printing***********************************************
 
-    private void connectToChange(String tableName, String sqlCode) throws SQLException {
+    private void connectToChange(String tableName, String sqlCode) {
         try (ResultSet resultSet = ConnectionTool.connectTo(this.dbName, this.password, sqlCode);
         ) {
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());
-            throw new SQLException(throwables);
         }
     }
 

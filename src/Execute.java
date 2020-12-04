@@ -11,8 +11,8 @@ public class Execute {
     public static void main(String[] args) {
 
 
-        while (true) {
-            boolean isTable=true;
+        boolean isTable = true;
+        while (isTable) {
             System.out.println("Enter password: ");
             password = scanner().next();
             System.out.println("Enter database name: ");
@@ -20,15 +20,17 @@ public class Execute {
             System.out.println("Enter table name: ");
             tableName = scanner().next();
             SqlFunctions sqlFunctions = new SqlFunctions(dbName, password);
-            while (isTable) {
+            while (true) {
                 try {
                     sqlFunctions.showTable(tableName);
+                    isTable = false;
                     printMenu();
                     executiveMenu(sqlFunctions, tableName);
 
                 } catch (SQLException e) {
-                    isTable=false;
                     System.out.println("Not valid input!!!! Try again.");
+                    if (isTable)
+                        break;
                 }
             }
         }
