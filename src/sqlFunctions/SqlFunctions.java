@@ -25,7 +25,7 @@ public class SqlFunctions {
     }
     //***********************************************Add data to chosen table************************************************
 
-    public void addToTable(String tableName) {
+    public void addToTable(String tableName) throws SQLException {
         ArrayList<String> columnNames = printColumns(tableName);
         StringBuilder sqlCode = new StringBuilder("INSERT INTO " + tableName + " (");
         for (int j = 0; j < columnNames.size(); j++) {
@@ -50,7 +50,7 @@ public class SqlFunctions {
     }
     //*******************************************Delete data from the table*******************************************
 
-    public void deleteFromTable(String tableName) {
+    public void deleteFromTable(String tableName) throws SQLException {
         String sqlCode = "delete from " + tableName + " where ";
         System.out.println("Enter the condition, for example 'student_id=10'. Make sure its a " +
                 "\nvalid condition, otherwise nothing will be affected.");
@@ -63,7 +63,7 @@ public class SqlFunctions {
     }
     //***********************************************Edit data in chosen table************************************************
 
-    public void editInTable(String tableName) {
+    public void editInTable(String tableName) throws SQLException {
         ArrayList<String> columnNames = printColumns(tableName);
         StringBuilder sqlCode = new StringBuilder("UPDATE " + tableName + "\nSET ");
         System.out.println("Enter the new data in order to change the row.NOTE:Enter the data without any change to" +
@@ -110,22 +110,24 @@ public class SqlFunctions {
     }
     //*******************************************Connect to database and print table******************************************
 
-    private void connectToPrint(String tableName, String sqlCode) {
+    private void connectToPrint(String tableName, String sqlCode) throws SQLException {
         try (ResultSet resultSet = ConnectionTool.connectTo(this.dbName, this.password, sqlCode);
         ) {
             ArrayList<String> columnNames = getColumnName(tableName);
             SqlPrint.print(resultSet, columnNames);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.out.println(throwables.getMessage());
+            throw new SQLException(throwables);
         }
     }
     //***********************************************Changing without printing***********************************************
 
-    private void connectToChange(String tableName, String sqlCode) {
+    private void connectToChange(String tableName, String sqlCode) throws SQLException {
         try (ResultSet resultSet = ConnectionTool.connectTo(this.dbName, this.password, sqlCode);
         ) {
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.out.println(throwables.getMessage());
+            throw new SQLException(throwables);
         }
     }
 

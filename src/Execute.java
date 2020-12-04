@@ -7,11 +7,12 @@ public class Execute {
     private static String tableName;
     private static String dbName;
     private static String password;
+
     public static void main(String[] args) {
 
         boolean isTable = true;
 
-        while (true) {
+        while (isTable) {
             System.out.println("Enter password: ");
             password = scanner().next();
             System.out.println("Enter database name: ");
@@ -19,26 +20,27 @@ public class Execute {
             System.out.println("Enter table name: ");
             tableName = scanner().next();
             SqlFunctions sqlFunctions = new SqlFunctions(dbName, password);
-            while (isTable) {
-
+            while (true) {
                 try {
+                    isTable = false;
                     sqlFunctions.showTable(tableName);
                     printMenu();
                     executiveMenu(sqlFunctions, tableName);
 
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    System.out.println("Not valid input!!!! Try again.");
                 }
             }
         }
     }
+
 
     public static Scanner scanner() {
         Scanner scanner = new Scanner(System.in);
         return scanner;
     }
 
-    public static void printMenu(){
+    public static void printMenu() {
         System.out.println();
         System.out.println("=*=*=*=*=*==*=*=*=*=*=*=*=*==*=*=*=*=*=*=*=*=*==*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=");
         System.out.println("*=*=*  |What do you want to do?(Enter the number:)                         *=*=*");
@@ -51,10 +53,11 @@ public class Execute {
         System.out.println("=*=*=*=*=*==*=*=*=*=*=*=*=*==*=*=*=*=*=*=*=*=*==*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=");
         System.out.println();
     }
-    public static void executiveMenu(SqlFunctions sqlFunctions , String tableName) throws SQLException {
+
+    public static void executiveMenu(SqlFunctions sqlFunctions, String tableName) throws SQLException {
 
         int action = scanner().nextInt();
-        switch (action){
+        switch (action) {
             case 1:
                 //To show another table at the same time of current table
                 //It's help full while changing the middle table
