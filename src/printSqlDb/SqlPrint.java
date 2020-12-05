@@ -7,12 +7,17 @@ import java.util.ArrayList;
 public class SqlPrint {
 
     public static void print(ResultSet resultSet, ArrayList<String> columnNames) throws SQLException {
-        while (resultSet.next() && columnNames != null) {
-            int i = 0;
-            while (i < columnNames.size()) {
-                printRow(columnNames, resultSet, i++);
+        try {
+            while (resultSet.next() && columnNames != null) {
+                int i = 0;
+                while (i < columnNames.size()) {
+                    printRow(columnNames, resultSet, i++);
+                }
+                System.out.println();
             }
-            System.out.println();
+        }catch (NullPointerException nullPointerException){
+            System.out.println(nullPointerException.getMessage());
+            System.out.println("Invalid execution have been chosen! Please try another method.");
         }
 
 

@@ -52,6 +52,7 @@ public class Execute {
         System.out.println("*=*=*  |4)Edit in the table                                                *=*=*");
         System.out.println("*=*=*  |5)Select another table                                             *=*=*");
         System.out.println("*=*=*  |6)Select another data base                                         *=*=*");
+        System.out.println("*=*=*  |7)Developer option(Run your own code)                              *=*=*");
         System.out.println("=*=*=*=*=*==*=*=*=*=*=*=*=*==*=*=*=*=*=*=*=*=*==*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=");
         System.out.println();
     }
@@ -85,6 +86,14 @@ public class Execute {
                 sqlFunctions.setDbName(scanner().next());
                 System.out.println("Enter table name: ");
                 Execute.tableName = scanner().next();
+                break;
+            case 7:
+                try{
+                    sqlFunctions.developerOption(tableName);
+                }catch (SQLException sqlException){
+                    System.out.println(sqlException.getMessage());
+                }
+
                 break;
             default:
                 System.out.println("Invalid input!!!!");

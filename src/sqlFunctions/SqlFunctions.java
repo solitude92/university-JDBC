@@ -96,7 +96,27 @@ public class SqlFunctions {
         connectToChange(tableName, sqlCode.toString());
         System.out.println("The data added successfully");
     }
-    //*******************************************get columns name of selected table*******************************************
+
+    //********************************************Run specific SQL code(Developer Option)********************************************
+    public void developerOption(String tableName) throws SQLException {
+        System.out.println("Enter sql code in order to get result in table " + tableName + " :");
+        String sqlCode = scanner().nextLine();
+        System.out.println(sqlCode);
+        System.out.println("Enter method of executing the query:\n*NOTE: If the code returns something->chose '1' else chose '2'.");
+        do {
+            int executeMethod = scanner().nextInt();
+            if (executeMethod == 1){
+                connectToPrint(tableName, sqlCode);
+                break;
+            } else if (executeMethod == 2) {
+                connectToChange(tableName, sqlCode);
+                break;
+            }else
+                System.out.println("Not valid input!!! Enter '1' or '2' :");
+        }while (true);
+    }
+
+    //*******************************************Get columns name of selected table*******************************************
 
     public ArrayList<String> getColumnName(String tableName) {
         String sqlCode = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS where TABLE_NAME LIKE '" + tableName + "'";
