@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 public class Execute {
     private static String tableName;
-    private static String dbName;
-    private static String password;
 
     public static void main(String[] args) {
 
@@ -14,9 +12,9 @@ public class Execute {
         boolean isTable = true;
         while (isTable) {
             System.out.println("Enter password: ");
-            password = scanner().next();
+            String password = scanner().next();
             System.out.println("Enter database name: ");
-            dbName = scanner().next();
+            String dbName = scanner().next();
             System.out.println("Enter table name: ");
             tableName = scanner().next();
             SqlFunctions sqlFunctions = new SqlFunctions(dbName, password);
@@ -38,8 +36,7 @@ public class Execute {
 
 
     public static Scanner scanner() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner;
+        return new Scanner(System.in);
     }
 
     public static void printMenu() {
@@ -88,9 +85,9 @@ public class Execute {
                 Execute.tableName = scanner().next();
                 break;
             case 7:
-                try{
+                try {
                     sqlFunctions.developerOption(tableName);
-                }catch (SQLException sqlException){
+                } catch (SQLException sqlException) {
                     System.out.println(sqlException.getMessage());
                 }
 

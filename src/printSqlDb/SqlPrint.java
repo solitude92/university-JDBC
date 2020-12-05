@@ -15,7 +15,7 @@ public class SqlPrint {
                 }
                 System.out.println();
             }
-        }catch (NullPointerException nullPointerException){
+        } catch (NullPointerException nullPointerException) {
             System.out.println(nullPointerException.getMessage());
             System.out.println("Invalid execution have been chosen! Please try another method.");
         }

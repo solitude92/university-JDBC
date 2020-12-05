@@ -22,9 +22,8 @@ public class ConnectionTool {
     //******************************************Running the query return the result*******************************************
     public static ResultSet query(Connection connection, String sqlQuery) throws SQLException {
         try {
-            ResultSet resultSet = connection.createStatement()
+            return connection.createStatement()
                     .executeQuery(sqlQuery);
-            return resultSet;
         } catch (Exception e) {
             connection.createStatement()
                     .executeUpdate(sqlQuery);

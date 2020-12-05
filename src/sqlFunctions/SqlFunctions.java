@@ -45,7 +45,7 @@ public class SqlFunctions {
         }
         sqlCode.append(")");
         System.out.println(sqlCode.toString());
-        connectToChange(tableName, sqlCode.toString());
+        connectToChange(sqlCode.toString());
         System.out.println("The data added successfully");
     }
     //*******************************************Delete data from the table*******************************************
@@ -57,14 +57,14 @@ public class SqlFunctions {
                 "\nvalid condition, otherwise nothing will be affected.");
         System.out.println("Enter the number of condition/s you need:");
         int conditionNumber = scanner().nextInt();
-        for (int i = 1 ; i <= conditionNumber; i++) {
+        for (int i = 1; i <= conditionNumber; i++) {
             System.out.println("Enter condition number " + i);
             sqlCode.append(scanner().next());
-            if (i<conditionNumber)
+            if (i < conditionNumber)
                 sqlCode.append(" AND ");
         }
         System.out.println(sqlCode.toString());
-        connectToChange(tableName, sqlCode.toString());
+        connectToChange(sqlCode.toString());
         System.out.println("The data deleted successfully");
 
 
@@ -86,14 +86,14 @@ public class SqlFunctions {
         int conditionNumber = scanner().nextInt();
         System.out.println("Enter the condition, for example ' student_id='10' '. Make sure its a " +
                 "\nvalid condition, otherwise nothing will be affected.");
-        for (int i = 1 ; i <= conditionNumber; i++) {
+        for (int i = 1; i <= conditionNumber; i++) {
             System.out.println("Enter condition number " + i);
             sqlCode.append(scanner().next());
-            if (i<conditionNumber)
+            if (i < conditionNumber)
                 sqlCode.append(" AND ");
         }
         System.out.println(sqlCode.toString());
-        connectToChange(tableName, sqlCode.toString());
+        connectToChange(sqlCode.toString());
         System.out.println("The data added successfully");
     }
 
@@ -105,15 +105,15 @@ public class SqlFunctions {
         System.out.println("Enter method of executing the query:\n*NOTE: If the code returns something->chose '1' else chose '2'.");
         do {
             int executeMethod = scanner().nextInt();
-            if (executeMethod == 1){
+            if (executeMethod == 1) {
                 connectToPrint(tableName, sqlCode);
                 break;
             } else if (executeMethod == 2) {
-                connectToChange(tableName, sqlCode);
+                connectToChange(sqlCode);
                 break;
-            }else
+            } else
                 System.out.println("Not valid input!!! Enter '1' or '2' :");
-        }while (true);
+        } while (true);
     }
 
     //*******************************************Get columns name of selected table*******************************************
@@ -121,7 +121,7 @@ public class SqlFunctions {
     public ArrayList<String> getColumnName(String tableName) {
         String sqlCode = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS where TABLE_NAME LIKE '" + tableName + "'";
         ArrayList<String> columnNames = new ArrayList<>();
-        try (ResultSet resultSet = ConnectionTool.connectTo(this.dbName, this.password, sqlCode);
+        try (ResultSet resultSet = ConnectionTool.connectTo(this.dbName, this.password, sqlCode)
         ) {
             while (resultSet.next()) {
                 columnNames.add(resultSet.getString("column_name"));
@@ -134,8 +134,7 @@ public class SqlFunctions {
     //*******************************************Help full scanner method ******************************************
 
     public static Scanner scanner() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner;
+        return new Scanner(System.in);
     }
     //*******************************************Print selected table's column names******************************************
 
@@ -147,7 +146,7 @@ public class SqlFunctions {
     //*******************************************Connect to database and print table******************************************
 
     private void connectToPrint(String tableName, String sqlCode) throws SQLException {
-        try (ResultSet resultSet = ConnectionTool.connectTo(this.dbName, this.password, sqlCode);
+        try (ResultSet resultSet = ConnectionTool.connectTo(this.dbName, this.password, sqlCode)
         ) {
             ArrayList<String> columnNames = getColumnName(tableName);
             SqlPrint.print(resultSet, columnNames);
@@ -158,8 +157,8 @@ public class SqlFunctions {
     }
     //***********************************************Changing without printing***********************************************
 
-    private void connectToChange(String tableName, String sqlCode) {
-        try (ResultSet resultSet = ConnectionTool.connectTo(this.dbName, this.password, sqlCode);
+    private void connectToChange(String sqlCode) {
+        try (ResultSet resultSet = ConnectionTool.connectTo(this.dbName, this.password, sqlCode)
         ) {
         } catch (SQLException throwables) {
             System.out.println(throwables.getMessage());
@@ -171,7 +170,4 @@ public class SqlFunctions {
         this.dbName = dbName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
