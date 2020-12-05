@@ -143,8 +143,8 @@ public class SqlFunctions {
         System.out.println(columnNames);
         return columnNames;
     }
-    //*******************************************Connect to database and print table******************************************
 
+    //*******************************************Connect to database and print table******************************************
     private void connectToPrint(String tableName, String sqlCode) throws SQLException {
         try (ResultSet resultSet = ConnectionTool.connectTo(this.dbName, this.password, sqlCode)
         ) {
@@ -155,8 +155,18 @@ public class SqlFunctions {
             throw new SQLException(throwables);
         }
     }
-    //***********************************************Changing without printing***********************************************
+//    //********************Connect to database and print table without column name(for developerOption)**********************
+//    private void connectToPrint(String sqlCode) throws SQLException {
+//        try (ResultSet resultSet = ConnectionTool.connectTo(this.dbName, this.password, sqlCode)
+//        ) {
+//            SqlPrint.print(resultSet);
+//        } catch (SQLException throwables) {
+//            System.out.println(throwables.getMessage());
+//            throw new SQLException(throwables);
+//        }
+//    }
 
+    //***********************************************Changing without printing***********************************************
     private void connectToChange(String sqlCode) {
         try (ResultSet resultSet = ConnectionTool.connectTo(this.dbName, this.password, sqlCode)
         ) {
